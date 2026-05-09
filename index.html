@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #0f0f0f;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 15, 15, 0.9);
+  height: 60px;
+}
+
+
+.logo img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: orange;
+}
+
+.contact-btn {
+  background: orange;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
+  min-height: 100vh;
+ background: radial-gradient(circle at right, rgba(255,165,0,0.1), transparent 50%);
+}
+
+.hero-text {
+  max-width: 500px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 1s;
+}
+
+.hero-text.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-text h1 {
+  font-size: 40px;
+}
+
+.hero-text span {
+  color: orange;
+}
+
+.hero-text p {
+  margin: 20px 0;
+  color: #aaa;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-orange {
+  background: orange;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-white {
+  background: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+
+
+/* HERO IMAGE */
+.hero-img {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: 1s;
+}
+
+.hero-img.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero-img img {
+  width: 450px;
+  border-radius: 20px;
+}
+
+/* ABOUT */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 10%;
+  background: #fff;
+}
+
+
+.about-img {
+  transform: translateX(-120px); /* dari kiri */
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.about-text {
+  transform: translateX(120px); 
+  opacity: 0;
+  transition: all 0.8s ease;
+  transition-delay: 0.2s; 
+}
+
+.about-img.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.about-text.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.about-img img {
+  width: 450px;
+  border-radius: 20px;
+}
+
+.about-text {
+  max-width: 500px;
+  color: #0f0f0f;
+}
+
+.about-text h2 {
+  color: orange;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.about-text p {
+    color:#666;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+/* ===== MENU ===== */
+.menu-section {
+  padding: 60px 10%;
+  background: #fff;
+  color: black;
+  text-align: center;
+}
+
+.menu-section span {
+  color: orange;
+}
+
+.menu-buttons {
+  margin: 20px 0;
+}
+
+.menu-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid orange;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-buttons .active {
+  background: orange;
+  color: white;
+}
+
+.menu-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-text {
+  max-width: 450px;
+  text-align: left;
+  flex: 1;
+  padding-left: 40px;
+}
+
+.menu-item {
+  margin-bottom: 20px;
+}
+
+.menu-item h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.menu-item span {
+  color: orange;
+  font-weight: bold;
+}
+
+.menu-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* animasi awal */
+.menu-img {
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: 0.8s;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.menu-img.show,
+.menu-text.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menu-img img {
+  width: 480px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* POPULAR */
+.popular {
+  padding: 60px 10%;
+  text-align: center;
+  background: url('bgpopu.jpeg');
+}
+
+.popular h2 {
+    color: black;
+}
+.popular span {
+  color: orange;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* animasi card */
+.card {
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 15px;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+
+/* GALLERY  */
+.gallery {
+  padding: 60px 10%;
+  text-align: center;
+  background: white;
+}
+
+.gallery h2 {
+    color: #0f0f0f;
+}
+
+.gallery span {
+  color: orange;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: 0.6s;
+}
+
+.gallery-item.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+/* overlay animasi */
+.overlay {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  transition: 0.4s;
+}
+
+.gallery-item:hover .overlay {
+  top: 0;
+}
+
+
+/* ===== ORDER ===== */
+.order {
+  padding: 60px 10%;
+  background: #fff;
+  text-align: center;
+}
+
+.order h2 {
+    color: #0f0f0f;
+}
+.order span {
+  color: orange;
+}
+
+.order-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: 0.8s;
+}
+
+.order-img {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: 0.8s;
+}
+
+.order-form.show,
+.order-img.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.order-form input,
+.order-form textarea {
+  padding: 10px;
+  border: none;
+  background: #eee;
+}
+
+.order-form button {
+  padding: 10px;
+  background: orange;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.order-img img {
+  width: 370px;
+  height: 350px;
+  border-radius: 10px;
+}
+
+/* footer */
+.footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-content p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.copyright {
+    text-align: center;
+   border-top: 1px solid #888;
+   margin-top: 20px;
+   padding-top: 15px;
+   margin-bottom: 20px;
+}
+
+
+
+
+/* SCROLL BUTTON  */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: orange;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+
+.modal-header {
+  background: orange;
+  color: white;
+}
+
+.modal-footer .btn-warning {
+  background: orange;
+  border: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">
+    <img src="logonav4-removebg-preview.png">
+  </div>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#popular">Popular</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#order">Order</a>
+  </div>
+
+  <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text" id="heroText">
+    <p>Best Dishes & Ingredients</p>
+    <h1>Always Delivering <span>Amazing</span>
+    </br> Experience</h1>
+    <p>Enjoy delicious food, cozy vibes, and friendly service that make you feel right at home.</p>
+
+    <div class="buttons">
+      <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#orderModal">Order Now</button>
+      <a href="#about"><button class="btn-white">Learn More</button></a>
+    </div>
+    </div>
+
+  
+
+
+
+  <div class="hero-img" id="heroImg">
+    <img src="photo-1633436375795-12b3b339712f-removebg-preview.png">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+  <div class="about-img">
+    <img src="ftaboutus.jpeg">
+  </div>
+
+  <div class="about-text">
+    <h2>About Us</h2>
+    <p>At our place, we believe that great food is more than just taste it’s about the experience. From carefully selected ingredients to thoughtfully crafted dishes, every detail is made to delight you. Whether you’re here for a quick bite or a relaxing meal, we are always delivering an amazing experience.</p>
+  </div>
+
+</section>
+
+<!-- ================== SPECIAL MENU ================== -->
+<section class="menu-section" id="menu">
+  <h2>Our Special <span>Menu</span></h2>
+
+  <div class="menu-buttons">
+    <button onclick="changeMenu(0)" class="active">Breakfast</button>
+    <button onclick="changeMenu(1)">Lunch</button>
+    <button onclick="changeMenu(2)">Dinner</button>
+    <button onclick="changeMenu(3)">Dessert</button>
+  </div>
+
+  <div class="menu-content">
+    <div class="menu-img">
+      <img id="menuImage" src="menu1.jpeg">
+    </div>
+
+    <div class="menu-text">
+  
+  <div class="menu-item">
+    <h4><span>01.</span> Breakfast Menu</h4>
+    <p>Mulai hari dengan pilihan sarapan sehat dan lezat, dari roti hangat hingga hidangan klasik yang penuh energi.</p>
+  </div>
+
+  <div class="menu-item">
+    <h4><span>02.</span> Lunch Menu</h4>
+    <p>Nikmati makan siang dengan menu spesial yang mengenyangkan dan kaya rasa,cocok untuk menemani aktivitas harianmu.</p>
+  </div>
+
+  <div class="menu-item">
+    <h4><span>03.</span> Dinner Menu</h4>
+    <p>Akhiri hari dengan hidangan makan malam yang istimewa, disajikan dengan cita rasa terbaik dan suasana yang nyaman.</p>
+  </div>
+
+  <div class="menu-item">
+    <h4><span>04.</span> Dessert Menu</h4>
+    <p>Manjakan dirimu dengan aneka dessert manis yang menggoda, dari kue lembut hingga hidangan pentup yang menyegarkan.</p>
+  </div>
+
+</div>
+  </div>
+</section>
+
+
+<!-- ================== POPULAR FOODS ================== -->
+<section class="popular" id="popular">
+  <h2>Most <span>Popular</span> Foods</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <img src="po1.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$34.59</p>
+    </div>
+
+    <div class="card">
+      <img src="po2.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$29.99</p>      
+    </div>
+
+    <div class="card">
+      <img src="po3.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$45.55</p>
+    </div>
+
+    <div class="card">
+      <img src="po4.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$39.45</p>
+    </div>
+
+    <div class="card">
+      <img src="po5.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$49.99</p>
+    </div>
+
+    <div class="card">
+      <img src="po6.jpeg">
+      <h3>Delicious Food</h3>
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>$59.99</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================== GALLERY ================== -->
+<section class="gallery" id="gallery">
+  <h2>Our Food <span>Gallery</span></h2>
+
+  <div class="gallery-grid">
+
+    <!-- 6 CARD -->
+    <div class="gallery-item">
+      <img src="ga1.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="ga2.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="ga3.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="ga4.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="ga5.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="ga6.jpeg">
+      <div class="overlay">Delicious Food</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================== ORDER ================== -->
+<section class="order" id="order">
+  <h2>Make An <span>Order</span></h2>
+
+  <div class="order-content">
+
+    <form class="order-form">
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <input type="password" placeholder="Your Password">
+      <input type="number" placeholder="Your Number">
+      <textarea placeholder="Your Address"></textarea>
+      <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#orderModal">
+         Order Now
+    </button>
+    </form>
+
+    <div class="order-img">
+      <img src="ord.jpeg">
+    </div>
+
+  </div>
+</section>
+
+<!--footer-->
+<footer>
+  <div class="footer-content">
+    
+    <p><i class="fa-solid fa-utensils" style="color: orange;"></i> Static Food</p>
+    
+    <p><i class="fa-solid fa-envelope" style="color: orange;"></i> Restaurant@gmail.com</p>
+    
+    <p><i class="fa-solid fa-phone" style="color: orange;"></i> +62 231 654 987</p>
+    
+    <p><i class="fa-solid fa-phone" style="color: orange;"></i> +62 123 456 789</p>
+
+  </div>
+  
+
+  <p class="copyright">
+    Based © 2024 With ❤️ For The World.
+  </p>
+</footer>
+
+<!-- SCROLL UP -->
+<button id="scrollTopBtn">⬆</button>
+
+
+<div class="modal fade" id="contactModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: white;">Contact Us</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p style="color: black;"><b>Email:</b> Restaurant@gmail.com</p>
+        <p style="color: black;"><b>No HP:</b> +62 123 456 789</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-warning" data-bs-dismiss="modal">Tutup</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="orderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: white;">Order Now</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- DATA PEMESAN -->
+        <input type="text" class="form-control mb-2" placeholder="Nama">
+        <input type="email" class="form-control mb-2" placeholder="Email">
+        <input type="number" class="form-control mb-2" placeholder="No HP">
+
+        <!-- PILIH MENU -->
+        <label class="mt-2">Pilih Menu</label>
+        <select class="form-control mb-2">
+          <option>Pilih Menu</option>
+          <option>Delicious Food 1</option>
+          <option>Delicious Food 2</option>
+          <option>Delicious Food 3</option>
+          <option>Delicious Food 4</option>
+          <option>Delicious Food 5</option>
+          <option>Delicious Food 6</option>
+        </select>
+
+        <!-- JUMLAH -->
+        <label>Jumlah</label>
+        <input type="number" class="form-control mb-2" placeholder="Qty">
+
+        <!-- CATATAN -->
+        <label>Catatan</label>
+        <textarea class="form-control mb-2" placeholder="Contoh: tidak pedas"></textarea>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button class="btn btn-warning">Pesan Sekarang</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ANIMASI MUNCUL
+window.addEventListener("load", () => {
+  document.getElementById("heroText").classList.add("active");
+  document.getElementById("heroImg").classList.add("active");
+});
+
+window.addEventListener("scroll", () => {
+
+  const aboutImg = document.querySelector(".about-img");
+  const aboutText = document.querySelector(".about-text");
+
+  const trigger = window.innerHeight - 100;
+
+  if (aboutImg.getBoundingClientRect().top < trigger) {
+    aboutImg.classList.add("show");
+    aboutText.classList.add("show");
+  }
+
+});
+
+//DATA GAMBAR 
+const menuData = [
+  "menu1.jpeg",
+  "menu2.jpeg",
+  "menu3.jpeg",
+  "menu4.jpeg"
+];
+
+// FUNCTION GANTI GAMBAR
+function changeMenu(index) {
+  const img = document.getElementById("menuImage");
+  img.src = menuData[index];
+
+  
+  const buttons = document.querySelectorAll(".menu-buttons button");
+  buttons.forEach(btn => btn.classList.remove("active"));
+  buttons[index].classList.add("active");
+}
+
+window.addEventListener("load", () => {
+  changeMenu(0);
+});
+
+
+// ANIMASI SCROLL
+window.addEventListener("scroll", () => {
+
+  // animasi menu
+  const menuImg = document.querySelector(".menu-img");
+  const menuText = document.querySelector(".menu-text");
+
+  if (menuImg && menuText) {
+    if (menuImg.getBoundingClientRect().top < window.innerHeight - 100) {
+      menuImg.classList.add("show");
+      menuText.classList.add("show");
+    }
+  }
+
+  // animasi card
+  const cards = document.querySelectorAll(".card");
+  cards.forEach(card => {
+    if (card.getBoundingClientRect().top < window.innerHeight - 50) {
+      card.classList.add("show");
+    }
+  });
+
+});
+
+  // delicious
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    if (card.getBoundingClientRect().top < window.innerHeight - 50) {
+      card.classList.add("show");
+    }
+  });
+
+
+
+// SCROLL ANIMATION
+window.addEventListener("scroll", () => {
+
+  // gallery
+  document.querySelectorAll(".gallery-item").forEach(item => {
+    if (item.getBoundingClientRect().top < window.innerHeight - 50) {
+      item.classList.add("show");
+    }
+  });
+
+  // order
+  const form = document.querySelector(".order-form");
+  const img = document.querySelector(".order-img");
+
+  if (form.getBoundingClientRect().top < window.innerHeight - 50) {
+    form.classList.add("show");
+    img.classList.add("show");
+  }
+
+  // scroll button
+  const btn = document.getElementById("scrollTopBtn");
+  if (window.scrollY > 300) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+
+});
+
+// scroll up
+document.getElementById("scrollTopBtn").onclick = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

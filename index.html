@@ -20,7 +20,7 @@ body {
   overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -31,10 +31,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  height: 60px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  height: 65px;
+  transition: background 0.3s;
 }
-
 
 .logo img {
   width: 120px;
@@ -45,12 +46,14 @@ body {
 .nav-links {
   display: flex;
   gap: 25px;
+  align-items: center;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
   transition: 0.3s;
+  font-size: 15px;
 }
 
 .nav-links a:hover {
@@ -63,16 +66,164 @@ body {
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
-/* HERO */
+.contact-btn:hover {
+  background: #e69500;
+}
+
+/* ===== HAMBURGER BUTTON ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(255,165,0,0.15);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  gap: 5px;
+  transition: background 0.3s;
+  z-index: 1100;
+}
+
+.hamburger:hover {
+  background: rgba(255,165,0,0.3);
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: white;
+  border-radius: 3px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ===== MOBILE MENU OVERLAY ===== */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 65px);
+  background: rgba(0,0,0,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 18px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.2s, background 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.mobile-menu a:hover {
+  color: orange;
+  background: rgba(255,165,0,0.07);
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-contact-btn {
+  margin-top: 30px;
+  background: orange;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.mobile-contact-btn:active {
+  transform: scale(0.97);
+}
+
+/* Animasi link satu per satu */
+.mobile-menu a {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: color 0.2s, background 0.2s, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu.open a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+.mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
+
+.mobile-menu .mobile-contact-btn {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: background 0.3s, transform 0.2s, opacity 0.3s ease;
+}
+.mobile-menu.open .mobile-contact-btn {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
+
+/* ===== HERO ===== */
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10%;
   min-height: 100vh;
- background: radial-gradient(circle at right, rgba(255,165,0,0.1), transparent 50%);
+  background: radial-gradient(circle at right, rgba(255,165,0,0.1), transparent 50%);
 }
 
 .hero-text {
@@ -103,6 +254,7 @@ body {
 .buttons {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .btn-orange {
@@ -111,6 +263,13 @@ body {
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-orange:hover {
+  background: #e69500;
 }
 
 .btn-white {
@@ -119,11 +278,14 @@ body {
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
+.btn-white:hover {
+  background: #eee;
+}
 
-
-/* HERO IMAGE */
 .hero-img {
   opacity: 0;
   transform: translateX(30px);
@@ -140,34 +302,33 @@ body {
   border-radius: 20px;
 }
 
-/* ABOUT */
+/* ===== ABOUT ===== */
 .about {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 80px 10%;
   background: #fff;
+  gap: 40px;
 }
 
-
 .about-img {
-  transform: translateX(-120px); /* dari kiri */
+  transform: translateX(-120px);
   opacity: 0;
   transition: all 0.8s ease;
+  flex-shrink: 0;
 }
 
 .about-text {
-  transform: translateX(120px); 
+  transform: translateX(120px);
   opacity: 0;
   transition: all 0.8s ease;
-  transition-delay: 0.2s; 
+  transition-delay: 0.2s;
+  max-width: 500px;
+  color: #0f0f0f;
 }
 
-.about-img.show {
-  transform: translateX(0);
-  opacity: 1;
-}
-
+.about-img.show,
 .about-text.show {
   transform: translateX(0);
   opacity: 1;
@@ -178,11 +339,6 @@ body {
   border-radius: 20px;
 }
 
-.about-text {
-  max-width: 500px;
-  color: #0f0f0f;
-}
-
 .about-text h2 {
   color: orange;
   margin-bottom: 20px;
@@ -190,9 +346,10 @@ body {
 }
 
 .about-text p {
-    color:#666;
-    font-family: sans-serif;
-    font-size: 15px;
+  color: #666;
+  font-family: sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 /* ===== MENU ===== */
@@ -209,15 +366,20 @@ body {
 
 .menu-buttons {
   margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
 
 .menu-buttons button {
-  margin: 5px;
   padding: 10px 20px;
   border-radius: 20px;
   border: 1px solid orange;
   background: transparent;
   cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
 }
 
 .menu-buttons .active {
@@ -233,6 +395,7 @@ body {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  gap: 30px;
 }
 
 .menu-text {
@@ -240,6 +403,9 @@ body {
   text-align: left;
   flex: 1;
   padding-left: 40px;
+  transform: translateX(100px);
+  opacity: 0;
+  transition: 0.8s;
 }
 
 .menu-item {
@@ -261,7 +427,6 @@ body {
   color: #666;
 }
 
-/* animasi awal */
 .menu-img {
   transform: translateX(-100px);
   opacity: 0;
@@ -270,7 +435,6 @@ body {
   display: flex;
   justify-content: flex-end;
 }
-
 
 .menu-img.show,
 .menu-text.show {
@@ -281,24 +445,18 @@ body {
 .menu-img img {
   width: 480px;
   border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-
-
-/* POPULAR */
+/* ===== POPULAR ===== */
 .popular {
   padding: 60px 10%;
   text-align: center;
   background: url('bgpopu.jpeg');
 }
 
-.popular h2 {
-    color: black;
-}
-.popular span {
-  color: orange;
-}
+.popular h2 { color: black; }
+.popular span { color: orange; }
 
 .cards {
   display: grid;
@@ -307,7 +465,6 @@ body {
   margin-top: 30px;
 }
 
-/* animasi card */
 .card {
   background: white;
   color: black;
@@ -316,6 +473,7 @@ body {
   transform: translateY(50px);
   opacity: 0;
   transition: all 0.4s ease;
+  border: none;
 }
 
 .card.show {
@@ -338,21 +496,15 @@ body {
   transform: scale(1.05);
 }
 
-
-/* GALLERY  */
+/* ===== GALLERY ===== */
 .gallery {
   padding: 60px 10%;
   text-align: center;
   background: white;
 }
 
-.gallery h2 {
-    color: #0f0f0f;
-}
-
-.gallery span {
-  color: orange;
-}
+.gallery h2 { color: #0f0f0f; }
+.gallery span { color: orange; }
 
 .gallery-grid {
   display: grid;
@@ -367,6 +519,7 @@ body {
   transform: translateY(50px);
   opacity: 0;
   transition: 0.6s;
+  border-radius: 10px;
 }
 
 .gallery-item.show {
@@ -380,7 +533,6 @@ body {
   border-radius: 10px;
 }
 
-/* overlay animasi */
 .overlay {
   position: absolute;
   top: -100%;
@@ -400,20 +552,15 @@ body {
   top: 0;
 }
 
-
-/*  ORDER  */
+/* ===== ORDER ===== */
 .order {
   padding: 60px 10%;
   background: #fff;
   text-align: center;
 }
 
-.order h2 {
-    color: #0f0f0f;
-}
-.order span {
-  color: orange;
-}
+.order h2 { color: #0f0f0f; }
+.order span { color: orange; }
 
 .order-content {
   display: flex;
@@ -428,7 +575,6 @@ body {
   flex-direction: column;
   gap: 10px;
   width: 400px;
-
   transform: translateX(-100px);
   opacity: 0;
   transition: 0.8s;
@@ -451,61 +597,70 @@ body {
   padding: 10px;
   border: none;
   background: #eee;
+  border-radius: 6px;
 }
 
 .order-form button {
-  padding: 10px;
+  padding: 12px;
   background: orange;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .order-img img {
   width: 370px;
   height: 350px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
-/* footer */
-.footer {
-    background: #111;
-    color: white;
-    text-align: center;
-    padding: 50px 20px;
+/* ===== FOOTER ===== */
+footer {
+  background: #111 !important;
+  color: white !important;
+  text-align: center !important;
+  padding: 50px 20px 30px !important;
+  display: block !important;
+  width: 100%;
 }
 
 .footer-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 20px auto !important;
+  max-width: 800px;
 }
 
 .footer-content p {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 8px;
   font-size: 14px;
-  margin: 0;
+  color: white !important;
+  margin: 0 !important;
 }
 
 .copyright {
-    text-align: center;
-   border-top: 1px solid #888;
-   margin-top: 20px;
-   padding-top: 15px;
-   margin-bottom: 20px;
+  display: block;
+  text-align: center !important;
+  color: #ccc !important;
+  border-top: 1px solid #444 !important;
+  margin: 20px auto 0 !important;
+  padding-top: 20px !important;
+  font-size: 14px;
+  max-width: 600px;
 }
 
-
-
-
-/* SCROLL BUTTON  */
+/* ===== SCROLL BUTTON ===== */
 #scrollTopBtn {
   position: fixed;
   bottom: 20px;
@@ -516,12 +671,15 @@ body {
   border-radius: 5px;
   cursor: pointer;
   display: none;
+  z-index: 900;
+  color: white;
+  font-size: 16px;
 }
 
+/* ===== MODAL ===== */
 .modal-content {
   border-radius: 15px;
 }
-
 
 .modal-header {
   background: orange;
@@ -533,29 +691,34 @@ body {
   border: none;
 }
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
 
   /* Navbar */
   .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 15px 5%;
-    gap: 15px;
+    padding: 0 5%;
   }
 
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+  .nav-links,
+  .contact-btn {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
   }
 
   /* Hero */
   .hero {
     flex-direction: column;
     text-align: center;
-    padding: 100px 5% 50px;
+    padding: 100px 5% 60px;
     gap: 30px;
+    background: radial-gradient(circle at bottom, rgba(255,165,0,0.1), transparent 60%);
+  }
+
+  .hero-text {
+    max-width: 100%;
   }
 
   .hero-text h1 {
@@ -564,7 +727,11 @@ body {
 
   .hero-img img {
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
+  }
+
+  .buttons {
+    justify-content: center;
   }
 
   /* About */
@@ -572,7 +739,7 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 60px 5%;
-    gap: 30px;
+    gap: 25px;
   }
 
   .about-img img {
@@ -585,36 +752,58 @@ body {
   }
 
   /* Menu */
+  .menu-section {
+    padding: 60px 5%;
+  }
+
   .menu-content {
     flex-direction: column;
     text-align: center;
-    gap: 30px;
+  }
+
+  .menu-img {
+    justify-content: center;
   }
 
   .menu-img img {
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
   }
 
   .menu-text {
     padding-left: 0;
     text-align: center;
+    max-width: 100%;
   }
 
   /* Popular */
+  .popular {
+    padding: 60px 5%;
+  }
+
   .cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
 
   /* Gallery */
+  .gallery {
+    padding: 60px 5%;
+  }
+
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   /* Order */
+  .order {
+    padding: 60px 5%;
+  }
+
   .order-content {
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
   }
 
   .order-form {
@@ -623,14 +812,34 @@ body {
 
   .order-img img {
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
     height: auto;
   }
 
   /* Footer */
   .footer-content {
-    flex-direction: column;
+    flex-direction: column !important;
     gap: 15px;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text h1 {
+    font-size: 24px;
+  }
+
+  .menu-buttons button {
+    padding: 8px 14px;
+    font-size: 13px;
   }
 }
 </style>
@@ -641,9 +850,10 @@ body {
 <!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">
-    <img src="logonav4-removebg-preview.png">
+    <img src="logonav4-removebg-preview.png" alt="Logo">
   </div>
 
+  <!-- Desktop Nav -->
   <div class="nav-links">
     <a href="#home">Home</a>
     <a href="#about">About</a>
@@ -653,47 +863,57 @@ body {
     <a href="#order">Order</a>
   </div>
 
-  <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</button>
+  <button class="contact-btn" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</button>
+
+  <!-- Hamburger Button (Mobile Only) -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</div>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-nav-link">Home</a>
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#menu" class="mobile-nav-link">Menu</a>
+  <a href="#popular" class="mobile-nav-link">Popular</a>
+  <a href="#gallery" class="mobile-nav-link">Gallery</a>
+  <a href="#order" class="mobile-nav-link">Order</a>
+  <button class="mobile-contact-btn" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-text" id="heroText">
     <p>Best Dishes & Ingredients</p>
-    <h1>Always Delivering <span>Amazing</span>
-    </br> Experience</h1>
+    <h1>Always Delivering <span>Amazing</span><br>Experience</h1>
     <p>Enjoy delicious food, cozy vibes, and friendly service that make you feel right at home.</p>
 
     <div class="buttons">
       <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#orderModal">Order Now</button>
       <a href="#about"><button class="btn-white">Learn More</button></a>
     </div>
-    </div>
-
-  
-
-
+  </div>
 
   <div class="hero-img" id="heroImg">
-    <img src="photo-1633436375795-12b3b339712f-removebg-preview.png">
+    <img src="photo-1633436375795-12b3b339712f-removebg-preview.png" alt="Food">
   </div>
 </section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
-
   <div class="about-img">
-    <img src="ftaboutus.jpeg">
+    <img src="ftaboutus.jpeg" alt="About Us">
   </div>
-
   <div class="about-text">
     <h2>About Us</h2>
-    <p>At our place, we believe that great food is more than just taste it’s about the experience. From carefully selected ingredients to thoughtfully crafted dishes, every detail is made to delight you. Whether you’re here for a quick bite or a relaxing meal, we are always delivering an amazing experience.</p>
+    <p>At our place, we believe that great food is more than just taste — it's about the experience. From carefully selected ingredients to thoughtfully crafted dishes, every detail is made to delight you. Whether you're here for a quick bite or a relaxing meal, we are always delivering an amazing experience.</p>
   </div>
-
 </section>
 
-<!-- ================== SPECIAL MENU ================== -->
+<!-- SPECIAL MENU -->
 <section class="menu-section" id="menu">
   <h2>Our Special <span>Menu</span></h2>
 
@@ -706,215 +926,175 @@ body {
 
   <div class="menu-content">
     <div class="menu-img">
-      <img id="menuImage" src="menu1.jpeg">
+      <img id="menuImage" src="menu1.jpeg" alt="Menu">
     </div>
 
     <div class="menu-text">
-  
-  <div class="menu-item">
-    <h4><span>01.</span> Breakfast Menu</h4>
-    <p>Mulai hari dengan pilihan sarapan sehat dan lezat, dari roti hangat hingga hidangan klasik yang penuh energi.</p>
-  </div>
-
-  <div class="menu-item">
-    <h4><span>02.</span> Lunch Menu</h4>
-    <p>Nikmati makan siang dengan menu spesial yang mengenyangkan dan kaya rasa,cocok untuk menemani aktivitas harianmu.</p>
-  </div>
-
-  <div class="menu-item">
-    <h4><span>03.</span> Dinner Menu</h4>
-    <p>Akhiri hari dengan hidangan makan malam yang istimewa, disajikan dengan cita rasa terbaik dan suasana yang nyaman.</p>
-  </div>
-
-  <div class="menu-item">
-    <h4><span>04.</span> Dessert Menu</h4>
-    <p>Manjakan dirimu dengan aneka dessert manis yang menggoda, dari kue lembut hingga hidangan pentup yang menyegarkan.</p>
-  </div>
-
-</div>
+      <div class="menu-item">
+        <h4><span>01.</span> Breakfast Menu</h4>
+        <p>Mulai hari dengan pilihan sarapan sehat dan lezat, dari roti hangat hingga hidangan klasik yang penuh energi.</p>
+      </div>
+      <div class="menu-item">
+        <h4><span>02.</span> Lunch Menu</h4>
+        <p>Nikmati makan siang dengan menu spesial yang mengenyangkan dan kaya rasa, cocok untuk menemani aktivitas harianmu.</p>
+      </div>
+      <div class="menu-item">
+        <h4><span>03.</span> Dinner Menu</h4>
+        <p>Akhiri hari dengan hidangan makan malam yang istimewa, disajikan dengan cita rasa terbaik dan suasana yang nyaman.</p>
+      </div>
+      <div class="menu-item">
+        <h4><span>04.</span> Dessert Menu</h4>
+        <p>Manjakan dirimu dengan aneka dessert manis yang menggoda, dari kue lembut hingga hidangan penutup yang menyegarkan.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-
-<!-- ================== POPULAR FOODS ================== -->
+<!-- POPULAR FOODS -->
 <section class="popular" id="popular">
   <h2>Most <span>Popular</span> Foods</h2>
 
   <div class="cards">
-
     <div class="card">
-      <img src="po1.jpeg">
+      <img src="po1.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
       <p>$34.59</p>
     </div>
-
     <div class="card">
-      <img src="po2.jpeg">
+      <img src="po2.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
-      <p>$29.99</p>      
+      <p>$29.99</p>
     </div>
-
     <div class="card">
-      <img src="po3.jpeg">
+      <img src="po3.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
       <p>$45.55</p>
     </div>
-
     <div class="card">
-      <img src="po4.jpeg">
+      <img src="po4.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
       <p>$39.45</p>
     </div>
-
     <div class="card">
-      <img src="po5.jpeg">
+      <img src="po5.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
       <p>$49.99</p>
     </div>
-
     <div class="card">
-      <img src="po6.jpeg">
+      <img src="po6.jpeg" alt="Food">
       <h3>Delicious Food</h3>
       <p>⭐⭐⭐⭐⭐</p>
       <p>$59.99</p>
     </div>
-
   </div>
 </section>
 
-<!-- ================== GALLERY ================== -->
+<!-- GALLERY -->
 <section class="gallery" id="gallery">
   <h2>Our Food <span>Gallery</span></h2>
 
   <div class="gallery-grid">
-
-    <!-- 6 CARD -->
     <div class="gallery-item">
-      <img src="ga1.jpeg">
+      <img src="ga1.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
     <div class="gallery-item">
-      <img src="ga2.jpeg">
+      <img src="ga2.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
     <div class="gallery-item">
-      <img src="ga3.jpeg">
+      <img src="ga3.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
     <div class="gallery-item">
-      <img src="ga4.jpeg">
+      <img src="ga4.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
     <div class="gallery-item">
-      <img src="ga5.jpeg">
+      <img src="ga5.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
     <div class="gallery-item">
-      <img src="ga6.jpeg">
+      <img src="ga6.jpeg" alt="Gallery">
       <div class="overlay">Delicious Food</div>
     </div>
-
   </div>
 </section>
 
-
-<!-- ================== ORDER ================== -->
+<!-- ORDER -->
 <section class="order" id="order">
   <h2>Make An <span>Order</span></h2>
 
   <div class="order-content">
-
-    <form class="order-form">
+    <form class="order-form" onsubmit="return false;">
       <input type="text" placeholder="Your Name">
       <input type="email" placeholder="Your Email">
       <input type="password" placeholder="Your Password">
       <input type="number" placeholder="Your Number">
-      <textarea placeholder="Your Address"></textarea>
-      <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#orderModal">
-         Order Now
-    </button>
+      <textarea placeholder="Your Address" rows="3"></textarea>
+      <button class="btn-orange" data-bs-toggle="modal" data-bs-target="#orderModal">Order Now</button>
     </form>
 
     <div class="order-img">
-      <img src="ord.jpeg">
+      <img src="ord.jpeg" alt="Order">
     </div>
-
   </div>
 </section>
 
-<!--footer-->
-<footer>
-  <div class="footer-content">
-    
-    <p><i class="fa-solid fa-utensils" style="color: orange;"></i> Static Food</p>
-    
-    <p><i class="fa-solid fa-envelope" style="color: orange;"></i> Restaurant@gmail.com</p>
-    
-    <p><i class="fa-solid fa-phone" style="color: orange;"></i> +62 231 654 987</p>
-    
-    <p><i class="fa-solid fa-phone" style="color: orange;"></i> +62 123 456 789</p>
-
+<!-- FOOTER -->
+<footer style="background:#111 !important; text-align:center !important; padding: 30px 20px 25px !important;">
+  <div style="max-width:900px; margin:0 auto; text-align:center;">
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:30px; margin-bottom:25px;">
+      <p style="color:white; display:flex; align-items:center; gap:8px; margin:0; font-size:14px;"><i class="fa-solid fa-utensils" style="color:orange;"></i> Static Food</p>
+      <p style="color:white; display:flex; align-items:center; gap:8px; margin:0; font-size:14px;"><i class="fa-solid fa-envelope" style="color:orange;"></i> Restaurant@gmail.com</p>
+      <p style="color:white; display:flex; align-items:center; gap:8px; margin:0; font-size:14px;"><i class="fa-solid fa-phone" style="color:orange;"></i> +62 231 654 987</p>
+      <p style="color:white; display:flex; align-items:center; gap:8px; margin:0; font-size:14px;"><i class="fa-solid fa-phone" style="color:orange;"></i> +62 123 456 789</p>
+    </div>
+    <hr style="border:none; border-top:1px solid #444; width:100%; margin:0 0 20px 0;">
+    <p style="color:#ccc; font-size:13px; text-align:center; margin:0;">Based © 2024 With ❤️ For The World.</p>
   </div>
-  
-
-  <p class="copyright">
-    Based © 2024 With ❤️ For The World.
-  </p>
 </footer>
 
 <!-- SCROLL UP -->
 <button id="scrollTopBtn">⬆</button>
 
-
+<!-- CONTACT MODAL -->
 <div class="modal fade" id="contactModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-
       <div class="modal-header">
         <h5 class="modal-title" style="color: white;">Contact Us</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body">
         <p style="color: black;"><b>Email:</b> Restaurant@gmail.com</p>
         <p style="color: black;"><b>No HP:</b> +62 123 456 789</p>
       </div>
-
       <div class="modal-footer">
         <button class="btn btn-warning" data-bs-dismiss="modal">Tutup</button>
       </div>
-
     </div>
   </div>
 </div>
 
+<!-- ORDER MODAL -->
 <div class="modal fade" id="orderModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-
       <div class="modal-header">
         <h5 class="modal-title" style="color: white;">Order Now</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body">
-
-        <!-- DATA PEMESAN -->
         <input type="text" class="form-control mb-2" placeholder="Nama">
         <input type="email" class="form-control mb-2" placeholder="Email">
         <input type="number" class="form-control mb-2" placeholder="No HP">
 
-        <!-- PILIH MENU -->
         <label class="mt-2">Pilih Menu</label>
         <select class="form-control mb-2">
           <option>Pilih Menu</option>
@@ -926,143 +1106,150 @@ body {
           <option>Delicious Food 6</option>
         </select>
 
-        <!-- JUMLAH -->
         <label>Jumlah</label>
         <input type="number" class="form-control mb-2" placeholder="Qty">
 
-        <!-- CATATAN -->
         <label>Catatan</label>
         <textarea class="form-control mb-2" placeholder="Contoh: tidak pedas"></textarea>
-
       </div>
-
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
         <button class="btn btn-warning">Pesan Sekarang</button>
       </div>
-
     </div>
   </div>
 </div>
 
-
 <script>
-// ANIMASI MUNCUL
+// ===== HERO ANIMATION =====
 window.addEventListener("load", () => {
   document.getElementById("heroText").classList.add("active");
   document.getElementById("heroImg").classList.add("active");
+  changeMenu(0);
 });
 
-window.addEventListener("scroll", () => {
+// ===== HAMBURGER MENU =====
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  const aboutImg = document.querySelector(".about-img");
-  const aboutText = document.querySelector(".about-text");
+hamburgerBtn.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.contains("open");
 
-  const trigger = window.innerHeight - 100;
-
-  if (aboutImg.getBoundingClientRect().top < trigger) {
-    aboutImg.classList.add("show");
-    aboutText.classList.add("show");
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
   }
-
 });
 
-//DATA GAMBAR 
-const menuData = [
-  "menu1.jpeg",
-  "menu2.jpeg",
-  "menu3.jpeg",
-  "menu4.jpeg"
-];
+function openMobileMenu() {
+  mobileMenu.style.display = "flex";
+  // Force reflow
+  mobileMenu.offsetHeight;
+  mobileMenu.classList.add("open");
+  hamburgerBtn.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
-// FUNCTION GANTI GAMBAR
+function closeMobileMenu() {
+  mobileMenu.classList.remove("open");
+  hamburgerBtn.classList.remove("open");
+  document.body.style.overflow = "";
+  // Delay hiding so animation plays
+  setTimeout(() => {
+    if (!mobileMenu.classList.contains("open")) {
+      mobileMenu.style.display = "none";
+    }
+  }, 300);
+}
+
+// Close menu when a nav link is clicked
+document.querySelectorAll(".mobile-nav-link").forEach(link => {
+  link.addEventListener("click", () => {
+    closeMobileMenu();
+  });
+});
+
+// Close menu when contact button in mobile menu is clicked
+document.querySelector(".mobile-contact-btn").addEventListener("click", () => {
+  closeMobileMenu();
+});
+
+// Close menu on outside click
+mobileMenu.addEventListener("click", (e) => {
+  if (e.target === mobileMenu) {
+    closeMobileMenu();
+  }
+});
+
+// ===== MENU SWITCHER =====
+const menuData = ["menu1.jpeg", "menu2.jpeg", "menu3.jpeg", "menu4.jpeg"];
+
 function changeMenu(index) {
   const img = document.getElementById("menuImage");
   img.src = menuData[index];
 
-  
   const buttons = document.querySelectorAll(".menu-buttons button");
   buttons.forEach(btn => btn.classList.remove("active"));
   buttons[index].classList.add("active");
 }
 
-window.addEventListener("load", () => {
-  changeMenu(0);
-});
+// ===== SCROLL ANIMATIONS =====
+function checkScroll() {
+  const trigger = window.innerHeight - 80;
 
-
-// ANIMASI SCROLL
-window.addEventListener("scroll", () => {
-
-  // animasi menu
-  const menuImg = document.querySelector(".menu-img");
-  const menuText = document.querySelector(".menu-text");
-
-  if (menuImg && menuText) {
-    if (menuImg.getBoundingClientRect().top < window.innerHeight - 100) {
-      menuImg.classList.add("show");
-      menuText.classList.add("show");
-    }
+  // About
+  const aboutImg = document.querySelector(".about-img");
+  const aboutText = document.querySelector(".about-text");
+  if (aboutImg && aboutImg.getBoundingClientRect().top < trigger) {
+    aboutImg.classList.add("show");
+    aboutText.classList.add("show");
   }
 
-  // animasi card
-  const cards = document.querySelectorAll(".card");
-  cards.forEach(card => {
+  // Menu
+  const menuImg = document.querySelector(".menu-img");
+  const menuText = document.querySelector(".menu-text");
+  if (menuImg && menuImg.getBoundingClientRect().top < trigger) {
+    menuImg.classList.add("show");
+    menuText.classList.add("show");
+  }
+
+  // Cards
+  document.querySelectorAll(".card").forEach(card => {
     if (card.getBoundingClientRect().top < window.innerHeight - 50) {
       card.classList.add("show");
     }
   });
 
-});
-
-  // delicious
-  const cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-    if (card.getBoundingClientRect().top < window.innerHeight - 50) {
-      card.classList.add("show");
-    }
-  });
-
-
-
-// SCROLL ANIMATION
-window.addEventListener("scroll", () => {
-
-  // gallery
+  // Gallery
   document.querySelectorAll(".gallery-item").forEach(item => {
     if (item.getBoundingClientRect().top < window.innerHeight - 50) {
       item.classList.add("show");
     }
   });
 
-  // order
+  // Order
   const form = document.querySelector(".order-form");
-  const img = document.querySelector(".order-img");
-
-  if (form.getBoundingClientRect().top < window.innerHeight - 50) {
+  const orderImg = document.querySelector(".order-img");
+  if (form && form.getBoundingClientRect().top < window.innerHeight - 50) {
     form.classList.add("show");
-    img.classList.add("show");
+    orderImg.classList.add("show");
   }
 
-  // scroll button
+  // Scroll button
   const btn = document.getElementById("scrollTopBtn");
-  if (window.scrollY > 300) {
-    btn.style.display = "block";
-  } else {
-    btn.style.display = "none";
-  }
+  btn.style.display = window.scrollY > 300 ? "block" : "none";
+}
 
-});
+window.addEventListener("scroll", checkScroll);
+window.addEventListener("load", checkScroll);
 
-// scroll up
+// ===== SCROLL TO TOP =====
 document.getElementById("scrollTopBtn").onclick = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
